@@ -1,52 +1,65 @@
-<h1>Items</h1>
+<div class="page-header">
+  <div class="header-content">
+    <h1 class="page-title">
+      <mat-icon class="title-icon">category</mat-icon>
+      Items
+    </h1>
+    <p class="page-subtitle">Manage individual items and components</p>
+  </div>
+  <button mat-raised-button color="primary" (click)="openCreateDialog()" class="add-button">
+    <mat-icon>add</mat-icon>
+    Add Item
+  </button>
+</div>
 
-<!-- Add Button ABOVE the table -->
-<button mat-flat-button color="primary" (click)="openCreateDialog()" style="margin-bottom: 16px;">
-  Add Item
-</button>
+<div class="table-container">
+  <table mat-table [dataSource]="items" class="modern-table">
 
-<table mat-table [dataSource]="items" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Item Name</th>
+      <td mat-cell *matCellDef="let item" class="name-cell">{{ item.name }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>ID</th>
-    <td mat-cell *matCellDef="let item">{{ item.id }}</td>
-  </ng-container>
+    <ng-container matColumnDef="serialNumber">
+      <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+      <td mat-cell *matCellDef="let item">{{ item.serialNumber }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let item">{{ item.name }}</td>
-  </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let item" class="price-cell">{{ item.price | currency }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="serialNumber">
-    <th mat-header-cell *matHeaderCellDef>Serial</th>
-    <td mat-cell *matCellDef="let item">{{ item.serialNumber }}</td>
-  </ng-container>
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef>Weight</th>
+      <td mat-cell *matCellDef="let item">
+        <span class="weight-badge">{{ item.weight }} kg</span>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="price">
-    <th mat-header-cell *matHeaderCellDef>Price</th>
-    <td mat-cell *matCellDef="let item">${{ item.price }}</td>
-  </ng-container>
+    <ng-container matColumnDef="supplier">
+      <th mat-header-cell *matHeaderCellDef>Supplier</th>
+      <td mat-cell *matCellDef="let item">
+        <span class="supplier-badge">{{ item.supplierName }}</span>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef>Weight</th>
-    <td mat-cell *matCellDef="let item">{{ item.weight }}</td>
-  </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let item">
+        <div class="action-buttons">
+          <button mat-icon-button color="primary" (click)="openEditDialog(item)" matTooltip="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteItem(item)" matTooltip="Delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="supplier">
-    <th mat-header-cell *matHeaderCellDef>Supplier</th>
-    <td mat-cell *matCellDef="let item">{{ item.supplierName }}</td>
-  </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
 
-  <!-- ACTIONS -->
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let item">
-      <button mat-button color="accent" (click)="openEditDialog(item)">Edit</button>
-    </td>
-  </ng-container>
-
-  <!-- TABLE ROWS -->
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-</table>
+  </table>
+</div>
