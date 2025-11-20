@@ -8,18 +8,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProductDialog } from './product-dialog/product-dialog';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatTooltipModule, MatDialogModule],
+  imports: [
+    CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatTooltipModule, MatDialogModule,
+    FormsModule,MatFormFieldModule,MatSelectModule
+  ],
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
 export class Products {
 
   products: any[] = [];
-  displayedColumns = ['name', 'serialNumber', 'price', 'stockQuantity', 'items', 'actions'];
+  displayedColumns = ['name', 'altName', 'serialNumber', 'price', 'stockQuantity', 'actions'];
 
   constructor(private api: ApiService, private dialog: MatDialog) {}
 
@@ -57,7 +63,7 @@ export class Products {
 
     ref.afterClosed().subscribe(result => {
       if (result) {
-        this.api.put(`/product/${result.id}`, result).subscribe(() => {
+        this.api.put(`/product`, result).subscribe(() => {
           this.loadProducts();
         });
       }
@@ -70,5 +76,8 @@ export class Products {
         this.loadProducts();
       });
     }
+  }
+
+  ngOnDestroy() {
   }
 }

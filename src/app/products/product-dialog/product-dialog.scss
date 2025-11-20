@@ -17,3 +17,18 @@ h1 {
   font-weight: 600;
   color: #111827;
 }
+
+.multi-select-field {
+  width: 100%;
+
+  .mat-select-value-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mat-option {
+    padding: 4px 12px;
+    font-size: 14px;
+  }
+}
