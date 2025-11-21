@@ -1,13 +1,9 @@
 <div class="page-header">
   <div class="header-content">
-    <h1 class="page-title">
-      <mat-icon class="title-icon">local_shipping</mat-icon>
-      Suppliers
-    </h1>
-    <p class="page-subtitle">Manage your supplier network</p>
+    <h1 class="page-title">Suppliers</h1>
+    <p class="page-subtitle">Manage your suppliers</p>
   </div>
-  <button mat-raised-button color="primary" (click)="openCreateDialog()" class="add-button">
-    <mat-icon>add</mat-icon>
+  <button mat-raised-button (click)="goToCreate()" class="add-button">
     Add Supplier
   </button>
 </div>
@@ -16,37 +12,37 @@
   <table mat-table [dataSource]="suppliers" class="modern-table">
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Supplier Name</th>
+      <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let s" class="name-cell">{{ s.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="altName">
-      <th mat-header-cell *matHeaderCellDef>Alternative Name</th>
-      <td mat-cell *matCellDef="let s">{{ s.altName || '-' }}</td>
+      <th mat-header-cell *matHeaderCellDef>Alt Name</th>
+      <td mat-cell *matCellDef="let s" class="name-cell">{{ s.altName }}</td>
     </ng-container>
 
     <ng-container matColumnDef="shopLink">
       <th mat-header-cell *matHeaderCellDef>Shop Link</th>
-      <td mat-cell *matCellDef="let s">
-        <a *ngIf="s.shopLink" [href]="s.shopLink" target="_blank" class="shop-link">
-          <mat-icon>open_in_new</mat-icon>
-          Visit Shop
-        </a>
-        <span *ngIf="!s.shopLink" class="no-link">-</span>
+      <td mat-cell *matCellDef="let s" class="name-cell">{{ s.shopLink }}</td>
+    </ng-container>
+
+    <!-- EDIT COLUMN -->
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef>Edit</th>
+      <td mat-cell *matCellDef="let i">
+        <button mat-icon-button (click)="goToEdit(i)">
+          <mat-icon>edit</mat-icon>
+        </button>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let s">
-        <div class="action-buttons">
-          <button mat-icon-button color="primary" (click)="openEditDialog(s)" matTooltip="Edit">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deleteSupplier(s)" matTooltip="Delete">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
+    <!-- DELETE COLUMN -->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let supplier">
+        <button mat-icon-button (click)="deleteSupplier(supplier)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 

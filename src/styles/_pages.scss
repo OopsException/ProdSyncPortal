@@ -3,7 +3,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
   padding: 20px 24px;
   background: white;
   border-radius: 16px;
@@ -50,6 +49,7 @@
 .form-page {
   background: white;
   padding: 24px;
+  margin: 15px 0px;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 
@@ -93,17 +93,8 @@
     color: #374151;
   }
 
-  .form-field angular2-multiselect { width: 100%; }
-
-  .form-actions {
-    margin-top: 30px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-
-    button {
-      height: 44px;
-    }
+  .form-field angular2-multiselect { 
+    width: 100%; 
   }
 
   .form-field angular2-multiselect {
@@ -129,5 +120,17 @@
       border-radius: 8px;
       padding: 2px 8px;
     }
+  }
+}
+
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 4px;
+
+  button {
+    height: 44px;
   }
 }

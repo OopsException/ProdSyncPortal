@@ -1,9 +1,12 @@
 <mat-sidenav-container class="main-container">
 
-  <mat-sidenav mode="side" opened class="sidebar">
+  <mat-sidenav #sidenav class="sidebar" [class.closed]="!isSidebarOpen" mode="side" [(opened)]="isSidebarOpen">
+    
     <div class="logo">
-      <mat-icon class="logo-icon">inventory_2</mat-icon>
-      <span class="logo-text">ProdSync</span>
+      <span class="logo-text" *ngIf="isSidebarOpen">ProdSync</span>
+      <button mat-icon-button (click)="toggleSidebar()" class="toggle-btn">
+        <mat-icon>{{ isSidebarOpen ? 'chevron_left' : 'menu' }}</mat-icon>
+      </button>
     </div>
 
     <mat-nav-list class="nav-list">

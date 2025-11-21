@@ -2,24 +2,58 @@
   height: 100vh;
 }
 
+// ----------------- Side Bar ----------------- //
+
 mat-sidenav.sidebar {
   width: 200px !important;
   background: #f8fafc;
   color: #111827;
   padding: 0;
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden !important; /* block overflow completely */
+  overflow: hidden !important;
+  transition: width 0.3s ease;
+}
+
+mat-sidenav.sidebar.closed {
+  width: 60px !important;
 }
 
 mat-sidenav.sidebar .mat-drawer-inner-container {
   overflow: hidden !important;
 }
 
-mat-sidenav-container .mat-sidenav-content {
-  margin-left: 200px !important;
+.sidebar.closed {
+  .logo-text {
+    display: none;
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 0;
+
+    span[matListItemTitle] {
+      display: none;
+    }
+
+    mat-icon {
+      margin-right: 0 !important;
+    }
+  }
 }
 
-// LOGO AREA
+// mat-sidenav-container .mat-sidenav-content {
+//   margin-left: 200px !important;
+// }
+
+.toggle-btn {
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  z-index: 1000;
+}
+
+// ----------------- Logo ----------------- //
+
 .logo {
   display: flex;
   align-items: center;
@@ -46,7 +80,8 @@ mat-sidenav-container .mat-sidenav-content {
   }
 }
 
-// NAVIGATION LIST
+// ----------------- Navigation List ----------------- //
+
 .nav-list {
   padding-top: 8px;
 
@@ -83,7 +118,8 @@ mat-sidenav-container .mat-sidenav-content {
   }
 }
 
-// PAGE CONTENT
+// ----------------- Content ----------------- //
+
 .content {
   padding: 20px;
   background: #f5f6f8;

@@ -6,15 +6,15 @@ import { SharedModule } from '../../shared/shared.module';
 import { forkJoin } from 'rxjs';
 
 @Component({
-  selector: 'app-product-form',
+  selector: 'app-supplier-form',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './product-form.html'
+  templateUrl: './supplier-form.html'
 })
-export class ProductForm {
+export class SupplierForm {
 
-  productForm!: FormGroup;
-  title = 'Add Product';
+  supplierForm!: FormGroup;
+  title = 'Add Supplier';
   editingId: number | null = null;
 
   constructor(
@@ -27,44 +27,42 @@ export class ProductForm {
   ngOnInit() {
 
     // Build form
-    this.productForm = this.fb.group({
+    this.supplierForm = this.fb.group({
       id: [null],
       name: [null, Validators.required],
       altName: [null],
-      serialNumber: [null, Validators.required],
-      price: [null],
-      stockQuantity: [null],
+      shopLink: [null],
     });
 
     // read ID from URL
     this.editingId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.editingId)
-      this.loadProduct(this.editingId);
+      this.loadSupplier(this.editingId);
     else
-      this.title = 'Add Product';
+      this.title = 'Add Supplier';
   }
 
-  loadProduct(id: number) {
-    this.api.get(`/product/${id}`).subscribe((product: any) => {
-      this.productForm.patchValue(product);
-      this.title = `Edit ${product.name}`;
+  loadSupplier(id: number) {
+    this.api.get(`/supplier/${id}`).subscribe((res: any) => {
+      this.supplierForm.patchValue(res);
+      this.title = `Edit ${res.name}`;
     });
   }
 
   save() {
-    const payload = this.productForm.value;
+    const payload = this.supplierForm.value;
 
     if (this.editingId) {
-      this.api.put('/product', payload).subscribe(() => {
-        // this.router.navigate(['/products']); NOT WORKING
+      this.api.put('/supplier', payload).subscribe(() => {
+        // this.router.navigate(['/suppliers']); NOT WORKING
       });
     } else {
-      this.api.post('/product', payload).subscribe(() => {
-        // this.router.navigate(['/products']); NOT WORKING
+      this.api.post('/supplier', payload).subscribe(() => {
+        // this.router.navigate(['/suppliers']); NOT WORKING
       });
     }
-    this.router.navigate(['/products']);
+    this.router.navigate(['/suppliers']);
   }
 
   ngOnDestroy() {

@@ -9,5 +9,9 @@ import { SharedModule } from '../shared/shared.module';
   templateUrl: './layout.html',
 })
 export class Layout {
+  isSidebarOpen = true;
 
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 }

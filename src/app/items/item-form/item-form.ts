@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs';
 export class ItemForm {
 
   itemForm!: FormGroup;
+  title = 'Add Item';
   editingId: number | null = null;
   suppliers: any[] = [];
   selectedSupplier: any[] = [];
@@ -55,8 +56,11 @@ export class ItemForm {
 
         this.selectedSupplier = this.suppliers.filter(
           s => s.id === item.supplierId);
+        
+        this.title = `Edit ${item.name}`;
       });
     } else {
+      this.title = 'Add Item';
       this.api.get('/supplier').subscribe((sup: any) => {
         this.suppliers = Array.isArray(sup)
           ? sup

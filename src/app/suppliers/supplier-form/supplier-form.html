@@ -1,0 +1,40 @@
+<div class="page-header">
+  <div class="header-content">
+    <h1 class="page-title">{{ title }}</h1>
+    <p class="page-subtitle">Add a new supplier</p>
+  </div>
+</div>
+
+<div class="form-page">
+  <form [formGroup]="supplierForm" class="form-grid">
+
+    <div class="field-group">
+      <label class="field-label">Name</label>
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="name">
+      </mat-form-field>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Alt Name</label>
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="altName">
+      </mat-form-field>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Shop Link</label>
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="shopLink">
+      </mat-form-field>
+    </div>
+
+  </form>
+
+  <div class="form-actions">
+    <button mat-button routerLink="/suppliers">Cancel</button>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="supplierForm.invalid">
+      Save
+    </button>
+  </div>
+</div>

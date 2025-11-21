@@ -1,27 +1,20 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/api';
-import { MatTableModule } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { SupplierDialog } from './supplier-dialog/supplier-dialog';
+import { SharedModule } from '../shared/shared.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-suppliers',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatTooltipModule, MatDialogModule],
+  imports: [SharedModule],
   templateUrl: './suppliers.html',
-  styleUrl: './suppliers.scss',
 })
 export class Suppliers {
 
   suppliers: any[] = [];
-  displayedColumns = ['name', 'altName', 'shopLink', 'actions'];
+  displayedColumns = ['name', 'altName', 'shopLink', 'edit', 'delete'];
 
-  constructor(private api: ApiService, private dialog: MatDialog) {}
+  constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
     this.loadSuppliers();
@@ -31,37 +24,18 @@ export class Suppliers {
     this.api.get('/supplier')
       .subscribe((res: any) => {
         const data = res as any;
-        this.suppliers = Array.isArray(data) ? data : (data?.data ?? data?.content ?? data?.items ?? []);
+        this.suppliers = Array.isArray(data) 
+          ? data 
+          : (data?.data ?? data?.content ?? data?.items ?? []);
       });
   }
 
-  openCreateDialog() {
-    const ref = this.dialog.open(SupplierDialog, {
-      width: '500px'
-    });
-
-    ref.afterClosed().subscribe(result => {
-      if (result) {
-        this.api.post('/supplier', result).subscribe(() => {
-          this.loadSuppliers();
-        });
-      }
-    });
+  goToCreate() { 
+    this.router.navigate(['/suppliers/create']);
   }
 
-  openEditDialog(supplier: any) {
-    const ref = this.dialog.open(SupplierDialog, {
-      width: '500px',
-      data: supplier
-    });
-
-    ref.afterClosed().subscribe(result => {
-      if (result) {
-        this.api.put(`/supplier/${result.id}`, result).subscribe(() => {
-          this.loadSuppliers();
-        });
-      }
-    });
+  goToEdit(supplier: any) {
+    this.router.navigate(['/suppliers', supplier.id, 'edit']);
   }
 
   deleteSupplier(supplier: any) {
@@ -70,5 +44,8 @@ export class Suppliers {
         this.loadSuppliers();
       });
     }
+  }
+
+  onNgDestroy() {
   }
 }

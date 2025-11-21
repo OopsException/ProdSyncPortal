@@ -6,6 +6,7 @@ import { Suppliers } from './suppliers/suppliers';
 import { Products } from './products/products';
 import { ProductForm } from './products/product-form/product-form';
 import { ItemForm } from './items/item-form/item-form';
+import { SupplierForm } from './suppliers/supplier-form/supplier-form';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,8 @@ export const routes: Routes = [
       { path: 'items/:id/edit', component: ItemForm },
 
       { path: 'suppliers', component: Suppliers },
+      { path: 'suppliers/create', component: SupplierForm },
+      { path: 'suppliers/:id/edit', component: SupplierForm },
 
       // Products route
       { path: 'products', component: Products },
