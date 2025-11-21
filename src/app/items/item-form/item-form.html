@@ -1,0 +1,54 @@
+<div class="page-header">
+  <div class="header-content">
+    <h1 class="page-title">
+      Create Item</h1>
+    <p class="page-subtitle">Add a new item to your inventory</p>
+  </div>
+</div>
+
+<div class="form-page">
+  <form [formGroup]="itemForm" class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Item Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Alt Name</mat-label>
+      <input matInput formControlName="altName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Serial Number</mat-label>
+      <input matInput type="number" formControlName="serialNumber">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Price</mat-label>
+      <input matInput type="number" formControlName="price">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Weight</mat-label>
+      <input matInput type="number" formControlName="weight">
+    </mat-form-field>
+
+    <div class="form-field">
+      <angular2-multiselect 
+          name="supplierDropDown" [data]="suppliers" [(ngModel)]="selectedSupplier"
+          [settings]="{singleSelection: true, text:'Select Supplier', primaryKey: 'id', labelKey: 'name', badgeShowLimit: 1,}"
+          (onSelect)="onSupplierSelect($event)"
+          (onDeSelect)="onSupplierClear()">
+      </angular2-multiselect>
+    </div>
+
+  </form>
+
+  <div class="form-actions">
+    <button mat-button routerLink="/items">Cancel</button>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="itemForm.invalid">
+      Save
+    </button>
+  </div>
+</div>

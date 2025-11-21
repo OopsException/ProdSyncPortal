@@ -8,6 +8,8 @@
 @use './styles/grid.scss';
 @use './styles/pages.scss';
 @use './styles/layout.scss';
+@use 'angular2-multiselect-dropdown/themes/default.theme.css';
+
 
 html, body {
   @include mat.theme((
