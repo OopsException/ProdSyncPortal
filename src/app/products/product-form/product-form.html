@@ -5,6 +5,7 @@
   </div>
 </div>
 
+<!-- Basic Info Section -->
 <div class="form-page">
   <form [formGroup]="productForm" class="form-grid">
 
@@ -44,6 +45,47 @@
     </div>
 
   </form>
+</div>
+
+<!-- Item Mapping Section -->
+ <div class="form-page">
+  <h2 class="section-title">Item Mappings</h2>
+
+  <!-- Add row button -->
+  <button mat-raised-button (click)="addItemRow()" class="add-button">
+    Add Item Mapping
+  </button>
+
+  <!-- ALL ITEM ROWS -->
+  <div class="item-row row-grid" *ngFor="let row of itemRows; let i = index">
+
+    <!-- ITEM DROPDOWN -->
+    <div class="field-group">
+      <label class="field-label">Item</label>
+      <div class="form-field">
+        <angular2-multiselect name="itemDropDown" [data]="items" [(ngModel)]="row.selectedItem"
+          [ngModelOptions]="{standalone: true}" [settings]="{ singleSelection: true, text:'Select Item',
+            primaryKey: 'id', labelKey: 'name', badgeShowLimit: 1 }">
+        </angular2-multiselect>
+      </div>
+    </div>
+
+    <!-- QUANTITY -->
+    <div class="field-group">
+      <label class="field-label">Quantity</label>
+      <mat-form-field appearance="outline">
+        <input matInput type="number" [(ngModel)]="row.quantity" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+    </div>
+
+    <!-- DELETE BUTTON -->
+    <div class="delete-group">
+      <button mat-icon-button color="warn" (click)="removeItemRow(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+  </div>
 </div>
 
 <div class="form-actions">

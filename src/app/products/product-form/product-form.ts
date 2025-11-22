@@ -17,6 +17,9 @@ export class ProductForm {
   title = 'Add Product';
   editingId: number | null = null;
 
+  items: any[] = [];
+  itemRows: any[] = [];
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -36,24 +39,60 @@ export class ProductForm {
       stockQuantity: [null],
     });
 
-    // read ID from URL
     this.editingId = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (this.editingId)
-      this.loadProduct(this.editingId);
-    else
+    if (this.editingId) {
+
+      // load both lists then map using the SAME object references
+      forkJoin({
+        items: this.api.get('/item'),
+        product: this.api.get(`/product/${this.editingId}`)
+      }).subscribe(({ items, product }: any) => {
+        this.items = Array.isArray(items)
+          ? items
+          : (items?.data ?? items?.content ?? items?.items ?? []);
+
+        this.productForm.patchValue(product);
+        this.title = `Edit ${product.name}`;
+
+        // selectedItem must be an ARRAY with the exact object from this.items
+        this.itemRows = (product.items ?? []).map((itm: any) => ({
+          selectedItem: [ this.items.find((x: any) => x.id === itm.id) ].filter(Boolean),
+          quantity: itm.quantity
+        }));
+      });
+
+    } else {
+      // load all items for dropdown
+      this.api.get('/item').subscribe((items: any) => {
+        this.items = Array.isArray(items)
+          ? items
+          : (items?.data ?? items?.content ?? items?.items ?? []);
+      });
+
       this.title = 'Add Product';
+    }
   }
 
-  loadProduct(id: number) {
-    this.api.get(`/product/${id}`).subscribe((product: any) => {
-      this.productForm.patchValue(product);
-      this.title = `Edit ${product.name}`;
+  addItemRow() {
+    this.itemRows.push({
+      selectedItem: [],
+      quantity: null
     });
   }
 
+  removeItemRow(index: number) {
+    this.itemRows.splice(index, 1);
+  }
+
   save() {
-    const payload = this.productForm.value;
+    const payload = {
+      ...this.productForm.value,
+      items: this.itemRows.map(r => ({
+        itemId: r.selectedItem?.[0]?.id,
+        quantity: r.quantity
+      }))
+    };
 
     if (this.editingId) {
       this.api.put('/product', payload).subscribe(() => {
