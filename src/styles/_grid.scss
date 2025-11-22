@@ -10,7 +10,6 @@
     width: 100%;
     border-collapse: collapse;
 
-    // HEADER CELLS
     th {
       text-align: center;
       vertical-align: middle;
@@ -23,7 +22,6 @@
       white-space: nowrap;
     }
 
-    // DATA CELLS
     td {
       padding: 6px 4px;
       font-size: 13px;
@@ -34,7 +32,6 @@
       white-space: nowrap;
     }
 
-    // Remove any bold or colored cells
     .name-cell,
     .price-cell,
     .stock-badge {
@@ -44,13 +41,11 @@
       padding: 0 !important;
     }
 
-    // Remove stock badge styling completely
     .stock-badge {
       display: inline;
       border-radius: 0;
     }
 
-    // Minimal action buttons
     button {
       color: #6b7280;
       transition: none;
@@ -63,7 +58,6 @@
   }
 }
 
-// REMOVE MATERIAL TABLE EXTRA PADDING
 mat-header-row,
 mat-row {
   padding: 0 !important;
@@ -75,12 +69,10 @@ mat-cell {
   padding-right: 0 !important;
 }
 
-// Remove extra padding inside table wrapper
 .mat-mdc-table {
   padding: 0 !important;
 }
 
-// REMOVE RIPPLE + HOVER CIRCLES FROM ICON BUTTONS
 .mat-mdc-button-ripple,
 .mdc-icon-button__ripple,
 .mat-mdc-focus-indicator {
@@ -115,4 +107,37 @@ button[mat-icon-button] {
   height: 24px !important;
   width: 24px !important;
   line-height: 24px !important;
+}
+
+// TOTALS SECTION
+.totals-container {
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.totals-row {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  align-items: center;
+  column-gap: 16px;
+  font-size: 15px;
+}
+
+.totals-label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.totals-value {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.totals-value.final {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2563eb;
 }

@@ -46,6 +46,10 @@ export class Products {
     }
   }
 
+  onRowClick(product: any) {
+    this.router.navigate(['/products', product.id, 'cogs']);
+  }
+
   ngOnDestroy() {
   }
 }

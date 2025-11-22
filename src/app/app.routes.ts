@@ -7,6 +7,7 @@ import { Products } from './products/products';
 import { ProductForm } from './products/product-form/product-form';
 import { ItemForm } from './items/item-form/item-form';
 import { SupplierForm } from './suppliers/supplier-form/supplier-form';
+import { ProductCogs } from './products/product-cogs/product-cogs';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: 'products', component: Products },
       { path: 'products/create', component: ProductForm },
       { path: 'products/:id/edit', component: ProductForm },
+      { path: 'products/:id/cogs', component: ProductCogs },
 
       // { path: '', redirectTo: 'items', pathMatch: 'full' }
     ]
