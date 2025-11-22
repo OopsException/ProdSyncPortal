@@ -15,6 +15,11 @@ export class ProductCogs {
   showBackButton = true;
   product: any;
 
+  offerColumns = ['name', 'quantity', 'unitCost', 'delivery', 'totalCost', 'sellingPrice', 'grossProfit',
+    'grossMargin', 'roas', 'targetCAC', 'netProfit', 'netMargin'
+  ];
+  offers: any[] = [];
+
   constructor(
     private api: ApiService,
     private route: ActivatedRoute
@@ -25,6 +30,12 @@ export class ProductCogs {
 
     this.api.get(`/product/${productId}`).subscribe((res: any) => {
       this.product = res;
+    });
+
+    this.api.get(`/offer/product/${productId}?unitEconomics=true`).subscribe((res: any) => {
+      this.offers = Array.isArray(res) 
+      ? res 
+      : (res?.data ?? res?.items ?? []);
     });
   }
 
